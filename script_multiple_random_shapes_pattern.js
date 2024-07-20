@@ -3,7 +3,7 @@ function setup() {
     background(40);
 }
 
-let angle = 0;
+let angles = []; // Array to store rotation angles for each ellipse
 
 function draw() {
     background(40);
@@ -14,14 +14,19 @@ function draw() {
 
     for (let i = 0; i < width + 50; i += rand1) {
         for (let j = 0; j < height + 50; j += rand1) {
+            let index = i * width + j; // Calculate a unique index for each ellipse
+            if (!angles[index]) {
+                angles[index] = 0; // Initialize the rotation angle if it doesn't exist
+            }
+
             push(); // Save the current transformation state
             translate(i, j); // Move to the ellipse position
-            rotate(angle); // Rotate by the current angle
+            rotate(angles[index]); // Rotate by the current angle
             fill(0, random(255), 150);
             ellipse(0, 0, rand2, rand3); // Draw the ellipse at (0, 0)
             pop(); // Restore the previous transformation state
+
+            angles[index] += 17 // Increment the angle for continuous rotation
         }
     }
-
-    angle += 0.01; // Increment the angle for continuous rotation
 }
